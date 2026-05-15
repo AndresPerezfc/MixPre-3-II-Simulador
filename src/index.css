@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0d0d0d;
+  font-family: 'Courier New', Courier, monospace;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#root {
+  width: 100%;
+}
+
+/* Knob drag cursor */
+.knob-interactive {
+  cursor: ns-resize;
+  user-select: none;
+}
+
+/* LED glow effects */
+.led-green {
+  filter: drop-shadow(0 0 4px #39ff14);
+}
+
+.led-red {
+  filter: drop-shadow(0 0 4px #ff3131);
+}
+
+.led-amber {
+  filter: drop-shadow(0 0 4px #ffaa00);
+}
+
+/* Green ring glow around knobs */
+.knob-ring-glow {
+  filter: drop-shadow(0 0 6px #39ff14) drop-shadow(0 0 12px #39ff1466);
+}
+
+/* Screen text glow */
+.screen-glow {
+  filter: drop-shadow(0 0 3px #39ff14);
+}
+
+/* Button active state */
+.btn-active {
+  filter: brightness(1.3);
+}
+
+/* REC button pulsing animation */
+@keyframes rec-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.rec-pulse {
+  animation: rec-pulse 1s ease-in-out infinite;
+}
+
+/* Boot screen fade in */
+@keyframes boot-fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.boot-text {
+  animation: boot-fadein 0.5s ease-in forwards;
+}
