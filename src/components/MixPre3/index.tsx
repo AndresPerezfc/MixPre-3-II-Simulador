@@ -12,18 +12,21 @@ const W = 920
 const H = 300
 
 // Layout constants
+// Channel zone:  x=45 → CH1, CH2, CH3 end at ~320 (45 + 2×95 + 72 + glow)
+// Transport zone: x=332 → ends at ~442 (110px: Play+Stop+REC compactos)
+// Screen zone:   x=455 → ends at ~905
 const CHASSIS_PAD = 14
-const CHANNEL_STRIP_START_X = 60
+const CHANNEL_STRIP_START_X = 45
 const CHANNEL_STRIP_Y = 90
-const CHANNEL_SPACING = 108
-const SCREEN_X = 430
+const CHANNEL_SPACING = 95
+const SCREEN_X = 455
 const SCREEN_Y = 18
-const SCREEN_W = 460
+const SCREEN_W = 450
 const SCREEN_H = H - 36
-const TRANSPORT_X = 310
-const TRANSPORT_Y = 130
-const HP_KNOB_X = 358
-const HP_KNOB_Y = 180
+const TRANSPORT_X = 332
+const TRANSPORT_Y = 128
+const HP_KNOB_X = 334
+const HP_KNOB_Y = 196
 
 export function MixPre3() {
   const {
@@ -199,20 +202,20 @@ export function MixPre3() {
         >
           HP VOL
         </text>
-        <svg x={HP_KNOB_X} y={HP_KNOB_Y} width={48} height={48} overflow="visible">
+        <svg x={HP_KNOB_X} y={HP_KNOB_Y} width={44} height={44} overflow="visible">
           <Knob
             value={headphoneGain}
             min={0}
             max={100}
-            size={48}
+            size={44}
             onChange={handleHpGain}
             glowColor="#aaa"
           />
         </svg>
 
         {/* Headphone jack decoration */}
-        <circle cx={HP_KNOB_X + 24} cy={HP_KNOB_Y + 62} r={5} fill="#111" stroke="#333" strokeWidth="1.5" />
-        <circle cx={HP_KNOB_X + 24} cy={HP_KNOB_Y + 62} r={2} fill="#050505" />
+        <circle cx={HP_KNOB_X + 22} cy={HP_KNOB_Y + 56} r={4} fill="#111" stroke="#333" strokeWidth="1.5" />
+        <circle cx={HP_KNOB_X + 22} cy={HP_KNOB_Y + 56} r={1.5} fill="#050505" />
 
         {/* ── Screen ── */}
         <Screen

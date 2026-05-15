@@ -7,64 +7,65 @@ interface TransportProps {
   onStop: () => void
 }
 
+// Compact layout: Play(r13) — Stop(r13, +36) — REC(+64, w=44) — total ~108px
 export function Transport({ x, y, onRecord, onStop }: TransportProps) {
   const { transport, power } = useMixerStore()
   const isRecording = transport === 'recording'
   const disabled = !power
 
+  const playX = x
+  const stopX = x + 36
+  const recX = x + 64
+
   return (
     <g opacity={disabled ? 0.4 : 1}>
-      {/* PLAY button — circle blanco */}
+      {/* PLAY button */}
       <g style={{ cursor: disabled ? 'default' : 'pointer' }}>
-        <circle cx={x} cy={y} r={16} fill="#d8d8d8" stroke="#aaa" strokeWidth="1" />
-        {/* Play triangle */}
+        <circle cx={playX} cy={y} r={13} fill="#d8d8d8" stroke="#aaa" strokeWidth="1" />
         <polygon
-          points={`${x - 5},${y - 8} ${x - 5},${y + 8} ${x + 9},${y}`}
+          points={`${playX - 4},${y - 6} ${playX - 4},${y + 6} ${playX + 7},${y}`}
           fill="#222"
         />
       </g>
 
-      {/* STOP button — circle blanco */}
+      {/* STOP button */}
       <g style={{ cursor: disabled ? 'default' : 'pointer' }} onClick={disabled ? undefined : onStop}>
-        <circle cx={x + 46} cy={y} r={16} fill="#d8d8d8" stroke="#aaa" strokeWidth="1" />
-        {/* Stop square */}
-        <rect x={x + 46 - 7} y={y - 7} width={14} height={14} fill="#222" rx="1" />
+        <circle cx={stopX} cy={y} r={13} fill="#d8d8d8" stroke="#aaa" strokeWidth="1" />
+        <rect x={stopX - 6} y={y - 6} width={12} height={12} fill="#222" rx="1" />
       </g>
 
       {/* REC button — rectángulo blanco prominente */}
-      <g style={{ cursor: disabled ? 'default' : 'pointer' }} onClick={disabled ? undefined : (isRecording ? onStop : onRecord)}>
+      <g
+        style={{ cursor: disabled ? 'default' : 'pointer' }}
+        onClick={disabled ? undefined : (isRecording ? onStop : onRecord)}
+      >
         <rect
-          x={x + 80}
-          y={y - 16}
-          width={52}
-          height={32}
+          x={recX}
+          y={y - 14}
+          width={44}
+          height={28}
           rx="4"
           fill={isRecording ? '#e0e0e0' : '#e8e8e8'}
           stroke="#999"
           strokeWidth="1.5"
-          style={
-            isRecording
-              ? { filter: 'drop-shadow(0 0 6px #ff3131)' }
-              : undefined
-          }
+          style={isRecording ? { filter: 'drop-shadow(0 0 6px #ff3131)' } : undefined}
         />
-        {/* Red dot when recording */}
         {isRecording && (
           <circle
-            cx={x + 80 + 10}
+            cx={recX + 9}
             cy={y}
-            r={5}
+            r={4}
             fill="#ff3131"
             className="rec-pulse"
             style={{ filter: 'drop-shadow(0 0 4px #ff3131)' }}
           />
         )}
         <text
-          x={x + 80 + (isRecording ? 32 : 26)}
-          y={y + 5}
+          x={recX + (isRecording ? 28 : 22)}
+          y={y + 4}
           textAnchor="middle"
           fill="#111"
-          fontSize="13"
+          fontSize="11"
           fontWeight="bold"
           fontFamily="Courier New, monospace"
           letterSpacing="1"
